@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	yup "github.com/gloo-foo/framework"
+	gloo "github.com/gloo-foo/framework"
 )
 
 type command struct {
@@ -19,15 +19,15 @@ type command struct {
 //
 //	// Emit "hello" to stdout and "warning" to stderr
 //	cmd := emit.Emit("hello", "warning")
-//	yup.MustRun(cmd)
-func Emit(stdoutContent, stderrContent string) yup.Command {
+//	gloo.MustRun(cmd)
+func Emit(stdoutContent, stderrContent string) gloo.Command {
 	return command{
 		stdoutContent: stdoutContent,
 		stderrContent: stderrContent,
 	}
 }
 
-func (c command) Executor() yup.CommandExecutor {
+func (c command) Executor() gloo.CommandExecutor {
 	return func(ctx context.Context, stdin io.Reader, stdout, stderr io.Writer) error {
 		// Write to stdout if content provided
 		if c.stdoutContent != "" {
@@ -58,4 +58,3 @@ func (c command) Executor() yup.CommandExecutor {
 		return nil
 	}
 }
-
